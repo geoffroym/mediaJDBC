@@ -1,0 +1,54 @@
+097643
+1954-06-29
+The Lord Of The Rings
+J.R.R.Tolkien
+1178
+FANTASY
+4
+0
+---
+098765
+2021-11-05
+Code Red: Cyber Espionage
+Agent X
+350
+ACTION
+3
+3
+Chapter 1: Breach Detected
+30
+Chapter 2: The Hackers Trail
+28
+Chapter 3: Countdown to Chaoes
+32
+---
+123456
+2023-01-15
+The Mysterious Case
+Sherlock Holmes
+300
+CRIME
+2
+3
+Chapter 1: The Stolen Diamond
+20
+Chapter 2: The Hidden Clues
+18
+Chapter 3: The Cryptic Message
+22
+---
+654321
+2022-08-20
+The Silent Witness
+Detective Smith
+280
+CRIME
+2
+3
+Prologue: A Dark Night
+15
+Chapter 1: Crime Scene
+25
+Chapter 2: Unraveling the Mystery
+20
+---

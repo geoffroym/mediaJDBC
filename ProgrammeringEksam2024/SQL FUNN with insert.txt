@@ -1,0 +1,66 @@
+DROP DATABASE IF EXISTS Funn;
+CREATE DATABASE Funn;
+USE Funn;
+
+CREATE TABLE Person (
+    Id INT PRIMARY KEY,
+    Navn VARCHAR(255),
+    Tlf VARCHAR(12),
+    E_post VARCHAR(255)
+);
+
+CREATE TABLE Museum (
+    Id INT PRIMARY KEY,
+    Navn VARCHAR(255),
+    Sted VARCHAR(255)
+);
+
+CREATE TABLE Vaapen (
+    Id INT PRIMARY KEY,
+    Funnsted VARCHAR(255),
+    Finner_id INT,
+    Funntidspunkt DATETIME,
+    Antatt_årstall INT,
+    Museum_id INT,
+    Type VARCHAR(100),
+    VaapenType VARCHAR(100),
+    Materiale VARCHAR(100),
+    Vekt INT,
+    FOREIGN KEY (Finner_id) REFERENCES Person(Id),
+    FOREIGN KEY (Museum_id) REFERENCES Museum(Id)
+);
+
+CREATE TABLE Smykke (
+    Id INT PRIMARY KEY,
+    Funnsted VARCHAR(255),
+    Finner_id INT,
+    Funntidspunkt DATETIME,
+    Antatt_årstall INT,
+    Museum_id INT,
+    Type VARCHAR(100),
+    SmykkeType VARCHAR (100),
+    Verdiestimat INT,
+    filnavn VARCHAR(255),
+    FOREIGN KEY (Finner_id) REFERENCES Person(Id),
+    FOREIGN KEY (Museum_id) REFERENCES Museum(Id)
+);
+
+CREATE TABLE Mynt (
+    Id INT PRIMARY KEY,
+    Funnsted VARCHAR(255),
+    Finner_id INT,
+    Funntidspunkt DATETIME,
+    Antatt_årstall INT,
+    Museum_id INT,
+    Type VARCHAR(100),
+    Diameter INT,
+    Metall VARCHAR(100),
+    FOREIGN KEY (Finner_id) REFERENCES Person(Id),
+    FOREIGN KEY (Museum_id) REFERENCES Museum(Id)
+);
+
+insert into mynt values (1, '66.79195598068002, 29.861744277190', 4, '2023-08-17', 1348, 7, 'Mynt', 28, 'Sølv');
+insert into mynt values (2, '62.27619445696880, 7.35940666883505',40,'2024-02-09',827,1,'Mynt',15,'Gull');
+insert into vaapen values (5, '62.98382539630544, 20.2862158496927', 19, '2024-03-11', 1772, 4, 'Våpen', 'Sverd', 'Jern', 6848);
+insert into vaapen values (11, '67.6521309483965, 29.62872454293073', 45, '2023-10-29', 1749, 2, 'Våpen', 'Muskedunder', 'Jern', 4676);
+insert into smykke values (18, '64.89050069549164, 16.18460569408039', 14, '2023-05-28', 1743, 9, 'Smykke', 'Halskjede', 6446, '124820127001.jpg');

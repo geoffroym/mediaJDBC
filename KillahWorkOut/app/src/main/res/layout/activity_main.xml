@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        tools:context=".MainActivity" android:accessibilityLiveRegion="@integer/material_motion_duration_long_1"
+        android:id="@+id/coordinatorLayout" android:background="#19F1E6EA">
+    <androidx.appcompat.widget.Toolbar
+            android:layout_width="411dp"
+            android:layout_height="113dp"
+            android:background="#8FE91E63"
+            android:theme="?attr/actionBarTheme"
+            android:minHeight="?attr/actionBarSize" tools:layout_editor_absoluteX="1dp" android:id="@+id/toolbar2"
+            tools:layout_editor_absoluteY="1dp"/>
+    <CalendarView
+            android:layout_width="385dp"
+            android:layout_height="218dp" android:id="@+id/calendarView" tools:layout_editor_absoluteY="128dp"
+            tools:layout_editor_absoluteX="13dp" android:selectedWeekBackgroundColor="#E91E63"
+            android:focusedMonthDateColor="#56E91E63" android:weekNumberColor="#61E91E63"/>
+    <Button
+            android:text="YOUR RUTINES"
+            android:layout_width="152dp"
+            android:layout_height="71dp" android:id="@+id/rutineButton" tools:layout_editor_absoluteY="425dp"
+            tools:layout_editor_absoluteX="141dp" android:textColorLink="#E91E63"
+            android:textColorHighlight="#95E91E63"/>
+    <com.google.android.material.bottomappbar.BottomAppBar
+            android:layout_width="414dp"
+            android:layout_height="110dp"
+            android:layout_gravity="bottom" tools:layout_editor_absoluteX="-2dp" android:id="@+id/bottomAppBar"
+            tools:layout_editor_absoluteY="626dp" app:backgroundTint="#8FE91E63"/>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true" app:srcCompat="@drawable/profile" android:id="@+id/floatingActionButton2"
+            tools:layout_editor_absoluteY="647dp" tools:layout_editor_absoluteX="282dp"/>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true" app:srcCompat="@drawable/settings" android:id="@+id/floatingActionButton3"
+            tools:layout_editor_absoluteY="647dp" tools:layout_editor_absoluteX="61dp"/>
+    <ImageView
+            android:layout_width="147dp"
+            android:layout_height="86dp" app:srcCompat="@drawable/logo" android:id="@+id/imageView3"
+            tools:layout_editor_absoluteY="16dp" tools:layout_editor_absoluteX="132dp"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
