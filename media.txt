@@ -1,0 +1,181 @@
+Books:
+7
+5
+To Kill a Mockingbird
+Harper Lee
+Fiction
+281
+1
+6
+1984
+George Orwell
+Science Fiction
+328
+1
+7
+Pride and Prejudice
+Jane Austen
+Romance
+279
+1
+8
+The Great Gatsby
+F. Scott Fitzgerald
+Classic
+180
+1
+9
+The Hobbit
+J.R.R. Tolkien
+Fantasy
+310
+1
+10
+Harry Potter and the Sorcerer's Stone
+J.K. Rowling
+Fantasy
+309
+1
+11
+The Alchemist
+Paulo Coelho
+Fantasy
+208
+1
+Movies:
+11
+1
+The Lion King
+Rob Minkoff
+Animation
+0
+3
+2
+Breakfast at Tiffanys
+Blake Edward
+Romance
+0
+3
+3
+Pulp Fiction
+Quentin Tarantino
+Crime
+18
+3
+4
+Inception
+Christopher Nolan
+Science Fiction
+13
+3
+5
+The Shawshank Redemption
+Frank Darabont
+Drama
+18
+3
+6
+The Godfather
+Francis Ford Coppola
+Crime
+18
+3
+7
+The Dark Knight
+Christopher Nolan
+Action
+13
+3
+8
+The Grand Budapest Hotel
+Wes Anderson
+Comedy
+18
+3
+9
+Schindler's List
+Steven Spielberg
+History
+18
+3
+10
+Spirited Away
+Hayao Miyazaki
+Animation
+5
+3
+11
+The Matrix
+Lana Wachowski, Lilly Wachowski
+Science Fiction
+18
+3
+Games:
+5
+5
+The Legend of Zelda
+Nintendo EPD
+Nintendo
+10
+Single player
+2
+1
+2
+Nintendo Switch
+6
+The Witcher 3: Wild Hunt
+CD Projekt red
+CD Projekt
+17
+Single player
+2
+3
+1
+Playstation
+4
+Xbox
+3
+Microsoft Windows
+7
+Minecraft
+Mojang Studios
+Microsoft Studios
+10
+Single player/ Multiplayer
+2
+3
+1
+Playstation
+4
+Xbox
+3
+Microsoft Windows
+8
+Grand Theft Auto V
+Rockstar North
+Rockstar Games
+17
+Single player/ Multiplayer
+2
+3
+1
+Playstation
+4
+Xbox
+3
+Microsoft Windows
+9
+Fortnite
+Epic Games
+Epic Games
+13
+Multiplayer
+2
+3
+1
+Playstation
+4
+Xbox
+3
+Microsoft Windows
+

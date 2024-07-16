@@ -3,12 +3,19 @@ package db;
 import com.mysql.cj.jdbc.MysqlDataSource;
 import dto.*;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class MediaService {
+    private static final String INSERT_BOOK_SQL = "INSERT INTO books (id, title, author, genre, pages, mediaId) VALUES (?, ?, ?, ?, ?, ?)";
+    private static final String INSERT_MOVIES_SQL = "INSERT INTO movies (id, title, director, genre, ageRating, mediaId) VALUES (?, ?, ?, ?, ?, ?)";
+    private static final String INSERT_GAME_SQL = "INSERT INTO games (id, title, developer, publisher, ageRating, mode, mediaId) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    private static final String INSERT_PLATFORM_SQL = "INSERT INTO platform (platform_id, platformName) VALUES (?, ?)";
+    private static final String INSERT_GAME_PLATFORM_SQL = "INSERT INTO game_platform (gameId, platform_id) VAlUES (?, ?)";
     private static final String GET_ALL_BOOKS_SQL = "SELECT books.id, title, author, genre, pages, mediaId, media.type FROM books JOIN media ON books.mediaId = media.id";
     private static final String GET_ALL_MOVIES_SQL = "SELECT movies.id, title, director, genre, ageRating, mediaId, media.type FROM movies JOIN media ON movies.mediaId = media.id";
     private static final String GET_ALL_GAMES_SQL = """
@@ -61,6 +68,86 @@ public class MediaService {
         mediaDS.setDatabaseName(MediaProperties.PROPS.getProperty("db_name"));
         mediaDS.setPortNumber(Integer.parseInt(MediaProperties.PROPS.getProperty("port")));
         mediaDS.setServerName(MediaProperties.PROPS.getProperty("host"));
+    }
+
+    public void addBookFromFile() throws FileNotFoundException, SQLException {
+        FileReader fileReader = new FileReader();
+        List<Books> books = fileReader.parseBooksFromFile();
+        try (Connection conn = mediaDS.getConnection();
+             PreparedStatement ps = conn.prepareStatement(INSERT_BOOK_SQL)) {
+            for (Books book: books) {
+                ps.setInt(1, book.getId());
+                ps.setString(2, book.getTitle());
+                ps.setString(3, book.getAuthor());
+                ps.setString(4, book.getGenre());
+                ps.setInt(5, book.getPages());
+                ps.setInt(6, book.getMedia().getId());
+                ps.executeUpdate();
+            }
+            System.out.println("Books added successfully");
+        } catch (SQLException e) {
+            System.out.println("Error:" + e.getMessage());
+        }
+    }
+
+    public void addMovieFromFile() throws FileNotFoundException, SQLException {
+        FileReader fileReader = new FileReader();
+        List<Movies> movies = fileReader.parseMoviesFromFile();
+        try (Connection conn = mediaDS.getConnection();
+             PreparedStatement ps = conn.prepareStatement(INSERT_MOVIES_SQL)) {
+            for (Movies m : movies) {
+                ps.setInt(1, m.getId());
+                ps.setString(2, m.getTitle());
+                ps.setString(3, m.getDirector());
+                ps.setString(4, m.getGenre());
+                ps.setInt(5, m.getAgeRating());
+                ps.setInt(6, m.getMedia().getId());
+                ps.executeUpdate();
+            }
+            System.out.println("Movies added successfully");
+        } catch (SQLException e) {
+            System.out.println("Error:" + e.getMessage());
+        }
+    }
+
+    public void addGameFromFile() throws FileNotFoundException, SQLException {
+        FileReader fileReader = new FileReader();
+        List<Games> games = fileReader.parseGamesFromFile();
+        try (Connection conn = mediaDS.getConnection();
+             PreparedStatement psGame = conn.prepareStatement(INSERT_GAME_SQL);
+             PreparedStatement psPlatform = conn.prepareStatement(INSERT_PLATFORM_SQL);
+             PreparedStatement psGamePlatform = conn.prepareStatement(INSERT_GAME_PLATFORM_SQL)) {
+            for (Games g : games) {
+                psGame.setInt(1, g.getId());
+                psGame.setString(2, g.getTitle());
+                psGame.setString(3, g.getDeveloper());
+                psGame.setString(4, g.getPublisher());
+                psGame.setInt(5, g.getAgeRating());
+                psGame.setString(6, g.getMode());
+                psGame.setInt(7, g.getMedia().getId());
+                psGame.executeUpdate();
+                System.out.println("inserted game: " + g.getTitle());
+
+                for (Platform p: g.getPlatforms()){
+                    try {
+
+                        psPlatform.setInt(1, p.getPlatformId());
+                        psPlatform.setString(2, p.getPlatformName());
+                        psPlatform.executeUpdate();
+                    } catch (SQLException e) {
+                        System.out.println("Error inserting/updating platform: " + e.getMessage());
+                    }
+
+                    psGamePlatform.setInt(1, g.getId());
+                    psGamePlatform.setInt(2, p.getPlatformId());
+                    psGamePlatform.executeUpdate();
+                    System.out.println("Linked game " + g.getTitle() + " with platform: " + p.getPlatformName());
+                }
+            }
+            System.out.println("Games and platforms added successfully");
+        } catch (SQLException e) {
+            System.out.println("Error:" + e.getMessage());
+        }
     }
 
     public List<Books> getAllBooks() throws SQLException {

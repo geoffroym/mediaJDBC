@@ -90,7 +90,12 @@ public class Program {
         Scanner scanner = new Scanner(System.in);
         String author = scanner.nextLine();
         Optional<Books> books = mediaService.getBooksByAuthor(author);
-        System.out.println(books);
+        if (books.isPresent()){
+            Books books1 = books.get();
+            System.out.println(books1);
+        } else {
+            System.out.println("We couldn't find the author you're looking for.");
+        }
     }
 
     private void addBook() throws SQLException {
@@ -333,7 +338,7 @@ public class Program {
             for (SearchMedia media1 : media) {
                 System.out.println(media1);
             }
-        }my
+        }
     }
 
     private void quit() {

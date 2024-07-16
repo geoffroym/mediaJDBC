@@ -1,0 +1,137 @@
+DROP DATABASE IF EXISTS MediaDB;
+CREATE DATABASE MediaDB;
+USE MediaDB;
+
+CREATE TABLE Media (
+id INT PRIMARY KEY,
+type VARCHAR(255) UNIQUE);
+
+CREATE TABLE Books (
+id INT PRIMARY KEY AUTO_INCREMENT,
+title VARCHAR(255),
+author VARCHAR(255),
+genre VARCHAR(255),
+pages INT,
+mediaId INT,
+FOREIGN KEY (mediaId) REFERENCES Media(id));
+
+CREATE TABLE Games (
+id INT PRIMARY KEY AUTO_INCREMENT,
+title VARCHAR(255),
+developer VARCHAR(255),
+publisher VARCHAR(255),
+ageRating INT,
+mode VARCHAR(255),
+mediaId INT,
+FOREIGN KEY (mediaId) REFERENCES Media(id));
+
+CREATE TABLE platform (
+platform_id INT PRIMARY KEY,
+platformName VARCHAR(255) UNIQUE);
+
+CREATE TABLE game_platform (
+gameId INT,
+platform_id INT,
+PRIMARY KEY (gameId, platform_id),
+FOREIGN KEY (gameId) REFERENCES games(id) ON DELETE CASCADE,
+FOREIGN KEY (platform_id) REFERENCES platform(platform_id)
+);
+
+CREATE TABLE Movies (
+id INT PRIMARY KEY AUTO_INCREMENT,
+title VARCHAR(255),
+director VARCHAR(255),
+genre VARCHAR(255),
+ageRating INT,
+mediaId INT,
+FOREIGN KEY (mediaId) REFERENCES Media(id));
+
+CREATE TABLE user (
+id INT PRIMARY KEY AUTO_INCREMENT, 
+username VARCHAR(255));
+
+INSERT INTO Media (id, type)
+VALUES (1, 'Books'),
+(2, 'Games'),
+(3, 'Movies');
+
+INSERT INTO books (title, author, genre, pages, mediaId) 
+VALUES ('Goodbye, Eri', 'Tatsuki Fujimoto', 'Manga', 208, 1);
+INSERT INTO books (title, author, genre, pages, mediaId) 
+VALUES ('Wuthering Heights', 'Emily Brontë', 'Classic', 400, 1);
+INSERT INTO books (title, author, genre, pages, mediaId) 
+VALUES ('Classic Tales of Horror', 'Edgar Allan Poe', 'Horror', 896, 1);
+INSERT INTO books (title, author, genre, pages, mediaId) 
+VALUES ('Crooked House', 'Agatha Christie', 'Crime', 256, 1);
+
+INSERT INTO platform (platform_id, platformName)
+VALUES (1, 'PlayStation'),
+(2, 'Nintendo Switch'),
+(3, 'Microsoft Windows'),
+(4, 'Xbox');
+
+INSERT INTO Games (title, developer, publisher, ageRating, mode, mediaId)
+VALUES ('DarkSiders III', 'Gunfire Games', 'THQ Nordic', 16, 'Single player', 2), 
+('Warhammer: Vermintide 2', 'Fatshark', 'Fatshark', 17, 'Multiplayer', 2),
+('Path of Exile', 'Grinding Gear Games', 'Grinding Gear Games', 18, 'Multiplayer', 2);
+
+INSERT INTO game_platform (gameId, platform_id) 
+values (1, 1),
+(1, 2),
+(1, 3),
+(1, 4);
+
+INSERT INTO game_platform (gameId, platform_id) 
+values (2, 1),
+(2, 3),
+(2, 4);
+
+INSERT INTO platform (platform_id, platformName)
+VALUES (5, 'MacOS');
+
+INSERT INTO game_platform (gameId, platform_id) 
+values (3, 1),
+(3, 3),
+(3, 4),
+(3, 5);
+
+INSERT INTO movies (title, director, genre, ageRating, mediaId)
+VALUES ('The Lion King', 'Rob Minkoff', 'Animation', 0, 3),
+('Breakfast at Tiffanys', 'Blake Edward', 'Romance', 0, 3),
+('Pulp Fiction', 'Quentin Tarantino', 'Crime', 18, 3);
+
+
+SELECT * FROM media;
+SELECT * FROM books;
+SELECT books.id, title, author, genre, pages, mediaId, media.type FROM books JOIN media ON books.mediaId = media.id;
+-- scores.id, category, time FROM scores JOIN user ON user.id = scores.userId 
+
+select * from games;
+select * from movies;
+SELECT movies.id, title, director, genre, ageRating, mediaId, media.type FROM movies JOIN media ON movies.mediaId = media.id;
+
+SELECT g.id, g.title, g.developer, g.publisher, g.ageRating, g.mode, g.mediaId, m.type, GROUP_CONCAT(p.platformName SEPARATOR ', ') AS platforms, group_concat(p.platform_id) AS platformId
+FROM games g JOIN media m ON g.mediaId = m.id
+JOIN game_platform gp ON g.id = gp.gameId
+JOIN platform p ON gp.platform_id = p.platform_id
+GROUP BY g.id;
+
+select * from user;
+select * from books;
+select * from media;
+select * from movies;
+select * from games;
+select * from platform;
+
+SELECT id, title, director, genre, ageRating FROM movies WHERE director="Quentin Tarantino";
+SELECT g.id, g.title, g.developer, g.publisher, g.ageRating, g.mode, g.mediaId, m.type, GROUP_CONCAT(p.platformName SEPARATOR ', ') AS platforms
+            FROM games g JOIN media m ON g.mediaId = m.id
+            JOIN game_platform gp ON g.id = gp.gameId
+            JOIN platform p ON gp.platform_id = p.platform_id
+            WHERE g.developer LIKE "Gunfire Games" OR g.publisher LIKE ""
+            GROUP BY g.id;
+
+INSERT INTO games (title, developer, publisher, ageRating, mode, mediaId) 
+VALUES ('Red Dead Redemption 2', 'Rockstar Games', 'Rockstar Games', 18, 'Single player/ Multiplayer', 2);
+
+SELECT id, title, developer, publisher, ageRating, mode, mediaId FROM games;
